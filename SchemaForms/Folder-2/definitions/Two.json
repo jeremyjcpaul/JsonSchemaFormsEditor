@@ -1,0 +1,12 @@
+{
+    "stuff": "stuff",
+    "label": {
+        "stuff": "stuff",
+        "control": [
+            "KEY:ONE",
+            "KEY:TWO",
+            "KEY:THREE",
+            "KEY:FOUR"
+        ]
+    }
+}

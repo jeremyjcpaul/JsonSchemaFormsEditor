@@ -1,0 +1,27 @@
+$checkbox-margin-right: 3px;
+
+.FolderTree {
+	/* ---------- Checkbox ---------- */
+	.Checkbox {
+		display: inline-block;
+		margin-right: $checkbox-margin-right;
+	}
+
+	/* ---------- TreeNode ---------- */
+	.TreeNode {
+		padding: 2px 0;
+
+		.iconContainer {
+			padding: 0 2px;
+
+			svg {
+				padding-top: 1px;
+				vertical-align: text-top;
+			}
+
+			&:not(.typeIconContainer) svg:hover {
+				cursor: pointer;
+			}
+		}
+	}
+}
