@@ -71,6 +71,15 @@ _Displaying messages in a readonly output textarea._
 
 - [x] Commit changes with meaningful commit message
 
+_Example message:_
+
+```
+KEY:WORD was appended to each of the following JSON Schema Forms:
+     SchemaForms/Folder-1/definitions/Four.json,
+     SchemaForms/Folder-2/definitions/One.json,
+     SchemaForms/Folder-2/definitions/Two.json.
+```
+
 ## Running the application
 
 These instructions assume that you're running the application from a Linux terminal. Make sure node is installed first, then setup the project:
