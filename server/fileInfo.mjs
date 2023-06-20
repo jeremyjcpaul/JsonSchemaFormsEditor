@@ -8,11 +8,10 @@ export const __dirname = dirname(__filename);
 /**
  * Attempts to append the given key/value pair to the JSON file at the given path.
  * @param {string} filePath
- * @param {string} key
- * @param {string} value
+ * @param {string} keyValuePair
  * @returns string
  */
-export const appendKeyToFile = function (filePath, key, value) {
+export const appendKeyToFile = function (filePath, keyValuePair) {
 	//check if file exist
 	if (!fs.existsSync(filePath)) {
 		//create new file if not exist
@@ -22,8 +21,16 @@ export const appendKeyToFile = function (filePath, key, value) {
 	// read file
 	const file = fs.readFileSync(filePath);
 
+	const response = {
+		appendedKeyValue: false,
+		outputMessage: "",
+	};
+
 	// check if file is empty
-	if (file.length === 0) return '"' + filePath + '" is an empty file.';
+	if (file.length === 0) {
+		response.outputMessage = '"' + filePath + '" is an empty file.';
+		return response;
+	}
 
 	// parse the JSON file
 	const json = JSON.parse(file.toString());
@@ -32,33 +39,30 @@ export const appendKeyToFile = function (filePath, key, value) {
 		// found expected label parameter
 		if (json.label.control) {
 			// found expected control parameter
-			let keyValuePair = key + ":" + value;
 			if (json.label.control.indexOf(keyValuePair) >= 0) {
 				// key already exists in the file
-				return {
-					outputMessage: 'Key/value pair already exists in "' + filePath + '".',
-				};
+				response.outputMessage =
+					'Key/value pair already exists in "' + filePath + '".';
 			} else {
 				// append the key/value into the file
 				json.label.control.push(keyValuePair);
 				fs.writeFileSync(filePath, JSON.stringify(json));
-				return {
-					gitCommitMessage: keyValuePair + ' appended to "' + filePath + '".',
-					outputMessage: 'Key/value pair appended to "' + filePath + '".',
-				};
+				// update the response
+				response.appendedKeyValue = true;
+				response.outputMessage =
+					'Key/value pair appended to "' + filePath + '".';
 			}
 		} else {
 			// return error message
-			return {
-				outputMessage: '"label.control" not found in "' + filePath + '"',
-			};
+			response.outputMessage =
+				'"label.control" not found in "' + filePath + '"';
 		}
 	} else {
 		// return error message
-		return {
-			outputMessage: '"label" not found in "' + filePath + '"',
-		};
+		response.outputMessage = '"label" not found in "' + filePath + '"';
 	}
+
+	return response;
 };
 
 /**

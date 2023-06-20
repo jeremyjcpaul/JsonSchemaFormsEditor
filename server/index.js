@@ -56,15 +56,22 @@ app.put("/files", (req, res, next) => {
 
 			// loop the given files and process them
 			let response = { messages: [] };
-			let gitCommitMessage = [];
+			let keyValuePair = keyString + ":" + valueString;
+			let updatedFiles = [];
 			files.forEach((file) => {
-				const res = appendKeyToFile(file.path, keyString, valueString);
+				const res = appendKeyToFile(file.path, keyValuePair);
 				response.messages.push(res.outputMessage);
-				if (res.gitCommitMessage) gitCommitMessage.push(res.gitCommitMessage);
+				if (res.appendedKeyValue) updatedFiles.push(" ".repeat(5) + file.path);
 			});
 
 			// commit a message to Git
-			asycGitCommit(gitCommitMessage.join(" "));
+			asycGitCommit(
+				'"' +
+					keyValuePair +
+					'" was appended to each of the following JSON Schema Forms:\n' +
+					updatedFiles.join(",\n") +
+					"."
+			);
 
 			res.status(200).json(response);
 		},
