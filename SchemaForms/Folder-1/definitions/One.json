@@ -1,1 +1,7 @@
-{"stuff":"stuff","label":{"stuff":"stuff","control":["KEY:ONE","KEY:TWO","KEY:THREE","KEY:FOUR","KEY:WORD","KEY:AWORD"]}}
+{
+	"stuff": "stuff",
+	"label": {
+		"stuff": "stuff",
+		"control": ["KEY:ONE", "KEY:TWO", "KEY:THREE", "KEY:FOUR"]
+	}
+}
